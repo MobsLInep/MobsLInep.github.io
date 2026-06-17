@@ -1,0 +1,188 @@
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  overflow: visible;
+  /* sky: dull/muted blue overhead fading to a soft near-white horizon */
+  background: linear-gradient(180deg, #7e9cb2 0%, #9fbac9 28%, #c2d6e2 55%, #e2eef4 80%, #f6fbff 100%);
+}
+
+/* film grain / paper-noise overlay for editorial depth */
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.banner__3d {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+/* clouds sit behind the top oval ring (z-index 2) but above the sky gradient */
+.banner__3d--clouds {
+  z-index: 1;
+}
+
+/* elliptical ring framing the flower */
+.banner__oval {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: 92vw;
+  max-width: 1400px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.9;
+}
+.banner__oval--top {
+  top: calc(50% + 0.6px);
+  transform: translateY(-100%);
+  z-index: 2;
+}
+.banner__oval--bot {
+  top: 50%;
+  z-index: 3;
+}
+
+.banner__infobox {
+  position: absolute;
+  left: 36px;
+  top: 110px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+}
+.banner__infobox-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #8b8087;
+}
+.banner__infobox-row--title {
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+}
+.banner__infobox-row--body {
+  border-top: none;
+  align-items: stretch;
+}
+.banner__infobox-title {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #280822;
+}
+.banner__infobox-icon {
+  width: 20px;
+  height: 20px;
+  color: #280822;
+  flex-shrink: 0;
+  stroke-width: 1.4;
+}
+.banner__infobox-date {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: grid;
+  place-items: center;
+  padding: 6px 4px;
+  border-right: 1px solid #8b8087;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #280822;
+}
+.banner__infobox-sub {
+  padding: 12px 14px;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(40, 8, 34, 0.7);
+}
+
+.banner__progress {
+  position: absolute;
+  left: 36px;
+  bottom: 48px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.banner__progress-bar {
+  width: 80px;
+  height: 2px;
+  background: #280822;
+}
+.banner__progress-dots {
+  color: rgba(40, 8, 34, 0.5);
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+/* viewfinder crosshairs over the flower */
+.banner__cross {
+  position: absolute;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0.28;
+}
+.banner__cross::before,
+.banner__cross::after {
+  content: "";
+  position: absolute;
+  background: rgba(40, 8, 34, 0.45);
+}
+.banner__cross::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
+.banner__cross::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-50%); }
+.banner__cross--a { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.banner__cross--b { left: 50%; top: 50%; transform: translate(-50%, calc(-50% + 90px)); }
+
+.banner__scroll {
+  position: absolute;
+  right: 36px;
+  bottom: 40px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #280822;
+}
+.banner__scroll-label {
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 24px;
+  border: 1px solid #8b8087;
+}
+.banner__scroll-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #280822;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .banner__oval { width: 130vw; }
+  .banner__infobox { top: 90px; max-width: 200px; }
+  .banner__scroll-label { display: none; }
+  .banner__cross--b { transform: translate(-50%, calc(-50% + 60px)); }
+}
